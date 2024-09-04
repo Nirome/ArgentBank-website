@@ -54,3 +54,7 @@
     color: #fff;
     margin-bottom: 2rem;
   }
+
+  .user-in {
+    display: flex;
+  }

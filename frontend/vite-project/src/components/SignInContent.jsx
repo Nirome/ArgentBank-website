@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setToken, fetchUserProfile } from '../features/auth/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom'; 
@@ -8,6 +10,7 @@ const SignInContent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
@@ -30,12 +33,16 @@ const SignInContent = () => {
       }
 
       const data = await response.json();
-      console.log('Login successful:', data);
-      
-      // Redirigez l'utilisateur vers la page /user après la connexion
+      const token = data.body.token;
+
+      // Stockez le token
+      dispatch(setToken(token));
+
+      // Fetch le profil de l'utilisateur
+      dispatch(fetchUserProfile());
+
       navigate('/user');
     } catch (err) {
-      console.error('Error:', err);
       setError('Invalid email or password');
     }
   };
