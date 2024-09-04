@@ -14,9 +14,9 @@
   
   .modal-content {
     background-color: white;
-    padding: 20px;
+    padding: 2rem;
     box-sizing: border-box;
-    width: 100%;
+    margin-top: 3rem;
     max-width: 300px;
     position: relative;
   }
@@ -46,4 +46,5 @@
     display: flex;
     justify-content: center;
     gap: 7px;
+    margin-top: 2rem;
   }
