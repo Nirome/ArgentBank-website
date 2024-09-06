@@ -35,10 +35,8 @@ const SignInContent = () => {
       const data = await response.json();
       const token = data.body.token;
 
-      // Stockez le token
       dispatch(setToken(token));
 
-      // Fetch le profil de l'utilisateur
       dispatch(fetchUserProfile());
 
       navigate('/user');

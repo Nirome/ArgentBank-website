@@ -26,19 +26,19 @@ const authSlice = createSlice({
   initialState: {
     token: null,
     user: null,
-    isAuthenticated: false, // Ajout de isAuthenticated dans l'état initial
+    isAuthenticated: false, 
     status: 'idle',
     error: null,
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
-      state.isAuthenticated = true; // Mettre à jour isAuthenticated lorsque le token est défini
+      state.isAuthenticated = true; 
     },
     logout(state) {
       state.token = null;
       state.user = null;
-      state.isAuthenticated = false; // Mettre à jour isAuthenticated lorsque l'utilisateur se déconnecte
+      state.isAuthenticated = false;
     },
   },
   extraReducers: (builder) => {
@@ -48,7 +48,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.error.message;
-        state.isAuthenticated = false; // Assurez-vous que l'utilisateur n'est pas considéré comme connecté en cas d'échec
+        state.isAuthenticated = false; 
       });
   },
 });

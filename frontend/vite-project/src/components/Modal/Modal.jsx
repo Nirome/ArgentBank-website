@@ -1,6 +1,5 @@
-// Modal.jsx
 import React from 'react';
-import './modal.css'; // Optionnel, si vous souhaitez ajouter des styles spécifiques
+import './modal.css'; 
 
 const Modal = ({ children, isOpen, onClose }) => {
   if (!isOpen) return null;

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from './modal/Modal.jsx';
-import { fetchUserProfile } from '../features/auth/authSlice'; // Importez l'action pour rafraîchir les informations de l'utilisateur
+import { fetchUserProfile } from '../features/auth/authSlice'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const UserContent = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token); // Récupérez le token pour l'authentification
+  const token = useSelector((state) => state.auth.token); 
   const [isEditing, setIsEditing] = useState(false);
-  const [userName, setUserName] = useState(user?.userName || ''); // Utilisez userName avec la majuscule "N"
+  const [userName, setUserName] = useState(user?.userName || ''); 
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -26,19 +26,17 @@ const UserContent = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userName }), // Envoyez "userName" dans la requête PUT
+        body: JSON.stringify({ userName }), 
       });
 
       if (!response.ok) {
         throw new Error('Failed to update userName');
       }
 
-      // Si la mise à jour est réussie, rafraîchissez les informations de l'utilisateur
       dispatch(fetchUserProfile());
-      setIsEditing(false); // Ferme la modal après la sauvegarde
+      setIsEditing(false); 
     } catch (error) {
       console.error('Error updating userName:', error);
-      // Gérez l'erreur si nécessaire (par exemple, afficher un message d'erreur)
     }
   };
 
@@ -54,18 +52,18 @@ const UserContent = () => {
         <button className="edit-button" onClick={handleEditClick}>Edit Name</button>
       </div>
 
-      {/* Modal pour l'édition du nom d'utilisateur */}
+       {/* Modal pour l'édition du nom d'utilisateur */}
       <Modal isOpen={isEditing} onClose={handleCancel}>
       <FontAwesomeIcon icon={faCircleUser} className="fa fa-user-circle sign-in-icon"/>
-        <h2>Edit user info</h2> {/* Titre ajouté */}
+        <h2>Edit user info</h2> 
         <form className="edit-form" onSubmit={handleSave}>
           <div className="input-wrapper">
             <label htmlFor="userName">Username</label>
             <input
               type="text"
               id="userName"
-              value={userName} // Utilisez "userName"
-              onChange={(e) => setUserName(e.target.value)} // Mettez à jour "userName" lors du changement
+              value={userName} 
+              onChange={(e) => setUserName(e.target.value)} 
             />
           </div>
           <div className="input-wrapper">
@@ -74,7 +72,7 @@ const UserContent = () => {
               type="text"
               id="firstName"
               value={user?.firstName}
-              disabled // Désactivé pour éviter la modification
+              disabled 
             />
           </div>
           <div className="input-wrapper">
@@ -83,7 +81,7 @@ const UserContent = () => {
               type="text"
               id="lastName"
               value={user?.lastName}
-              disabled // Désactivé pour éviter la modification
+              disabled 
             />
           </div>
           <div className='edit-buttons'>
@@ -93,7 +91,6 @@ const UserContent = () => {
         </form>
       </Modal>
 
-      {/* Détails des comptes de l'utilisateur */}
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
         <div className="account-content-wrapper">
