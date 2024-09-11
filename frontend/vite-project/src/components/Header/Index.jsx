@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/images/logo.webp';
+import logo from '/images/logo.webp';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../Auth/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
