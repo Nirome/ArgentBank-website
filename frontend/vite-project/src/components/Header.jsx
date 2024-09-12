@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../assets/images/logo.webp';
+import logo from '/images/logo.webp'
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../features/auth/authSlice';
+import { logout } from '../Auth/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './Auth/ProtectedRoute';
 
 const App = () => {
   return (
