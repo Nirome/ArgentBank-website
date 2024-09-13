@@ -101,27 +101,6 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/accounts:
-    get:
-      security:
-        - Bearer: []
-      tags:
-        - Account Module
-      summary: Get User Accounts
-      description: API for retrieving the list of bank accounts associated with the authenticated user.
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Accounts retrieved successfully
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Account'
-        '400':
-          description: Invalid fields
-        '500':
-          description: Internal Server Error
   /user/accounts/{accountId}/transactions:
     get:
       security:
@@ -148,76 +127,13 @@ paths:
         '500':
           description: Internal Server Error
   /user/accounts/{accountId}/transactions/{transactionId}:
-    get:
+    patch:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Get detailed information of a specific transaction
-      description: API to fetch details of a specific transaction
-      parameters:
-        - name: accountId
-          in: path
-          required: true
-          type: string
-          description: The ID of the account associated with the transaction.
-        - name: transactionId
-          in: path
-          required: true
-          type: string
-          description: The ID of the transaction to fetch details for.
-      responses:
-        '200':
-          description: Successfully retrieved transaction details
-          schema:
-            $ref: '#/definitions/TransactionDetails'
-        '400':
-          description: Invalid account or transaction ID
-        '500':
-          description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}/category:
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Update transaction category
-      description: Assign a new category to a specific transaction
-      parameters:
-        - name: accountId
-          in: path
-          required: true
-          type: string
-          description: The ID of the account
-        - name: transactionId
-          in: path
-          required: true
-          type: string
-          description: The ID of the transaction
-        - in: body
-          name: category
-          required: true
-          schema:
-            type: object
-            properties:
-              category:
-                type: string
-                description: Category to assign to the transaction
-      responses:
-        '200':
-          description: Category updated successfully
-        '400':
-          description: Invalid request
-        '500':
-          description: Internal Server Error
-  /user/accounts/{accountId}/transactions/{transactionId}/note:
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Add or update a note for a specific transaction
-      description: API to add or update the note for a particular transaction
+      summary: Modify or update transaction details
+      description: API to add or update the category, transaction type, and note for a particular transaction. Also allows deleting the note.
       parameters:
         - name: accountId
           in: path
@@ -231,17 +147,23 @@ paths:
           description: The ID of the transaction
         - in: body
           name: body
-          description: Note details
+          description: Transaction details to update
           required: true
           schema:
             type: object
             properties:
+              category:
+                type: string
+                description: The category of the transaction to be updated or added
+              transactionType:
+                type: string
+                description: The type of the transaction to be updated or added
               note:
                 type: string
-                description: The note to be added or updated
+                description: The note to be updated, added, or removed. Use null to delete the note
       responses:
         '200':
-          description: Successfully updated note
+          description: Successfully updated transaction details
           schema:
             $ref: '#/definitions/Transaction'
         '400':
@@ -266,13 +188,17 @@ paths:
           required: true
           type: string
           description: The ID of the transaction 
-    responses:
-      '200':
-        description: Successfully deleted note
-      '400':
-        description: Invalid fields
-      '500':
-        description: Internal Server Error
+      responses:
+        '200':
+          description: Successfully delete note
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid fields
+        '500':
+          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -328,21 +254,6 @@ definitions:
     properties:
       userName:
         type: string
-  Account:
-    type: object
-    properties:
-      id:
-        type: string
-        description: Unique account identifier
-      accountType:
-        type: string
-        description: Type of the account (checking, savings)
-      accountNumber:
-        type: string
-        description: Bank account number
-      balance:
-        type: number
-        description: Current account balance
   Transaction:
     type: object
     properties:
@@ -361,9 +272,6 @@ definitions:
         type: number
         format: float
         description: Balance after the transaction
-  TransactionDetails:
-    type: object
-    properties:
       transactionId:
         type: string
       transactionType:
