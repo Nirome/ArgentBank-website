@@ -1,8 +1,7 @@
 import React from 'react';
-import Footer from '../components/Footer.jsx';
-import Header from '../components/Header.jsx';
-import UserContent from '../components/UserContent.jsx';
-
+import Footer from '../../components/Footer/Index';
+import Header from '../../components/Header/Index';
+import UserContent from '../../components/UserContent/Index';
 
 const User = () => {
     return (

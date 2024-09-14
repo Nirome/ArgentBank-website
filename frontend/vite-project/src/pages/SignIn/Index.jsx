@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import SignInContent from '../components/SingInContent.jsx.jsx';
+import Header from '../../components/Header/Index';
+import Footer from '../../components/Footer/Index';
+import SignInContent from '../../components/SignInContent/Index';
 
 const SignIn = () => {
     return (

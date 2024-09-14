@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Modal from './Modal.jsx';
-import { fetchUserProfile } from '../Auth/authSlice.jsx'; 
+import Modal from '../Modal/Index.jsx';
+import { fetchUserProfile } from '../../Auth/authSlice.jsx'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 

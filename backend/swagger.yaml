@@ -127,6 +127,33 @@ paths:
         '500':
           description: Internal Server Error
   /user/accounts/{accountId}/transactions/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Retrieve details of a specific transaction
+      description: API to fetch the details of a particular transaction using its ID.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          type: string
+          description: The ID of the account
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: The ID of the transaction
+      responses:
+        '200':
+          description: Successfully retrieved transaction details
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal Server Error
     patch:
       security:
         - Bearer: []
@@ -166,35 +193,6 @@ paths:
           description: Successfully updated transaction details
           schema:
             $ref: '#/definitions/Transaction'
-        '400':
-          description: Invalid fields
-        '500':
-          description: Internal Server Error
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Delete the note for a specific transaction
-      description: API to delete the note for a specific transaction
-      parameters:
-        - name: accountId
-          in: path
-          required: true
-          type: string
-          description: The ID of the account 
-        - name: transactionId
-          in: path
-          required: true
-          type: string
-          description: The ID of the transaction 
-      responses:
-        '200':
-          description: Successfully delete note
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
         '400':
           description: Invalid fields
         '500':
